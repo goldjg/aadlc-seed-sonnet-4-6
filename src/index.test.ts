@@ -22,4 +22,3 @@ describe('commands export', () => {
     expect(names.some((n) => n?.startsWith('create'))).toBe(true)
   })
 })
-
