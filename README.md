@@ -92,13 +92,53 @@ demonstrate the capabilities of the CLI application.
 
 - **`info`**: Prints information about the current system and Node.js configuration. This command is useful for
   verifying the environment in which the CLI is running.
-  - `--full` / `-f` (default: `true`): include full process config in the output.
+  - `--full` / `-f` (default: `true`): include full process config in the output. Pass `--no-full` to omit it.
   - `--format` / `-o` (choices: `text`, `json`; default: `text`): select output format.
-    - `text` — coloured human-readable output (default, existing behaviour).
-    - `json` — machine-readable JSON written to stdout.
-- **`greeting`**: Demonstrates interactive prompts within the CLI. It's a great way to see how user inputs can be
-  handled in a friendly manner.
-- **`create`**: Create new project based on `cli-typescript-starter`.
+    - `text` — coloured human-readable output logged via Consola.
+    - `json` — machine-readable JSON written to stdout. Useful for piping to other tools.
+
+  Example invocations:
+
+  ```sh
+  # Human-readable text output (default)
+  pnpm start info
+
+  # Machine-readable JSON, no process config
+  pnpm start info --format json --no-full
+
+  # Machine-readable JSON including full process config
+  pnpm start info --format json --full
+  ```
+
+  JSON output shape:
+
+  ```json
+  {
+    "node": "v20.x.x",
+    "arch": "arm64",
+    "cwd": "/path/to/project",
+    "memoryUsage": { "rss": 0, "heapTotal": 0, "heapUsed": 0, "external": 0, "arrayBuffers": 0 },
+    "argv": {},
+    "processConfig": {}
+  }
+  ```
+
+  > `processConfig` is only present when `--full` is `true` (the default).
+
+- **`greeting`**: Demonstrates interactive prompts within the CLI. It asks for your name (text input) and mood
+  (emoji selection), then prints a personalised greeting.
+
+  ```sh
+  pnpm start greeting
+  ```
+
+- **`create`**: Scaffold a new project from the `cli-typescript-starter` template into the specified directory.
+  - `<path>` (positional, default: `cli-typescript-starter`): destination directory. Relative paths are resolved
+    from the current working directory.
+
+  ```sh
+  pnpm start create my-new-cli
+  ```
 
 All commands are located in the `src/commands/` folder. This organization makes it easy to find and modify commands or
 add new ones as needed.
