@@ -30,7 +30,13 @@ export function builder(yargs: Argv): Argv {
     })
 }
 
+const VALID_FORMATS: OutputFormat[] = ['text', 'json']
+
 export async function handler(argv: ArgumentsCamelCase<InfoArgv>) {
+  if (argv.format !== undefined && !VALID_FORMATS.includes(argv.format as OutputFormat)) {
+    throw new Error(`Invalid format: "${argv.format}". Must be one of: ${VALID_FORMATS.join(', ')}`)
+  }
+
   if (argv.format === 'json') {
     const output: Record<string, unknown> = {
       node: process.version,

@@ -66,6 +66,24 @@ describe('info command', () => {
     })
   })
 
+  describe('invalid format', () => {
+    it('throws an error when an invalid format is supplied', async () => {
+      const argv = { full: false, format: 'xml' as OutputFormat } as ArgumentsCamelCase<InfoArgv>
+      await expect(handler(argv)).rejects.toThrow('Invalid format: "xml". Must be one of: text, json')
+    })
+
+    it('error message names the invalid value', async () => {
+      const argv = { full: false, format: 'csv' as OutputFormat } as ArgumentsCamelCase<InfoArgv>
+      await expect(handler(argv)).rejects.toThrow('"csv"')
+    })
+
+    it('does not write to stdout when format is invalid', async () => {
+      const argv = { full: false, format: 'xml' as OutputFormat } as ArgumentsCamelCase<InfoArgv>
+      await expect(handler(argv)).rejects.toThrow()
+      expect(stdoutSpy).not.toHaveBeenCalled()
+    })
+  })
+
   describe('builder', () => {
     it('registers format option with choices text and json', () => {
       const choicesSpy = jest.fn().mockReturnThis()
