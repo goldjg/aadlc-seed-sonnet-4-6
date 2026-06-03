@@ -1,5 +1,6 @@
 import { expect, jest, describe, it, beforeEach, afterEach } from '@jest/globals'
 import { handler, builder, OutputFormat } from './info'
+import { logger } from '../logger'
 import { ArgumentsCamelCase } from 'yargs'
 
 type InfoArgv = { full?: boolean; format?: OutputFormat; [key: string]: unknown }
@@ -102,6 +103,71 @@ describe('info command', () => {
       expect(formatOptions).toBeDefined()
       expect(formatOptions?.choices).toEqual(['text', 'json'])
       expect(formatOptions?.default).toBe('text')
+    })
+
+    it('registers full option as boolean with default true', () => {
+      const optionSpy = jest.fn().mockReturnThis()
+      const mockYargs = { option: optionSpy } as unknown as Parameters<typeof builder>[0]
+
+      let fullOptions: Record<string, unknown> | undefined
+      optionSpy.mockImplementation((name: unknown, opts: unknown) => {
+        if (name === 'full') fullOptions = opts as Record<string, unknown>
+        return mockYargs
+      })
+
+      builder(mockYargs)
+
+      expect(fullOptions).toBeDefined()
+      expect(fullOptions?.type).toBe('boolean')
+      expect(fullOptions?.default).toBe(true)
+    })
+
+    it('registers full option with alias f', () => {
+      const optionSpy = jest.fn().mockReturnThis()
+      const mockYargs = { option: optionSpy } as unknown as Parameters<typeof builder>[0]
+
+      let fullOptions: Record<string, unknown> | undefined
+      optionSpy.mockImplementation((name: unknown, opts: unknown) => {
+        if (name === 'full') fullOptions = opts as Record<string, unknown>
+        return mockYargs
+      })
+
+      builder(mockYargs)
+
+      expect(fullOptions?.alias).toBe('f')
+    })
+  })
+
+  describe('--format text logger calls', () => {
+    let infoSpy: ReturnType<typeof jest.spyOn>
+    let boxSpy: ReturnType<typeof jest.spyOn>
+
+    beforeEach(() => {
+      infoSpy = jest.spyOn(logger, 'info').mockImplementation(() => {})
+      boxSpy = jest.spyOn(logger, 'box').mockImplementation(() => {})
+    })
+
+    afterEach(() => {
+      infoSpy.mockRestore()
+      boxSpy.mockRestore()
+    })
+
+    it('calls logger.info at least once in text mode', async () => {
+      const argv = { full: false, format: 'text' as OutputFormat } as ArgumentsCamelCase<InfoArgv>
+      await handler(argv)
+      expect(infoSpy).toHaveBeenCalled()
+    })
+
+    it('calls logger.box when full=true in text mode', async () => {
+      const argv = { full: true, format: 'text' as OutputFormat } as ArgumentsCamelCase<InfoArgv>
+      await handler(argv)
+      expect(boxSpy).toHaveBeenCalled()
+    })
+
+    it('does not call logger.box when full=false in text mode', async () => {
+      const argv = { full: false, format: 'text' as OutputFormat } as ArgumentsCamelCase<InfoArgv>
+      await handler(argv)
+      expect(boxSpy).not.toHaveBeenCalled()
     })
   })
 })
