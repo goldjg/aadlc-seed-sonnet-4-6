@@ -39,3 +39,23 @@ invariants:
     name: Invariant amendment governance
     rule: Agents must preserve invariants unless the user explicitly amends the invariant or opens a separate governance change.
     severity: high
+
+  - id: hydration-no-source-change
+    name: Hydration phase must not change application source
+    rule: During a hydration phase, application source code (src/, bin/, package.json scripts, tsconfig.json) must not be modified.
+    severity: high
+
+  - id: cli-public-interface-stability
+    name: CLI public interface stability
+    rule: The three registered commands (info, greeting, create) and their aliases (i, g, c) define the current public CLI contract and must not be removed or renamed without an explicit phase requirement.
+    severity: high
+
+  - id: benchmark-prompts-immutable
+    name: Benchmark prompts are immutable
+    rule: Files under benchmark/prompts/ must not be modified during any benchmark run.
+    severity: critical
+
+  - id: validation-commands-pass
+    name: Validation commands must pass
+    rule: pnpm build, pnpm compile, pnpm test, pnpm lint, and pnpm format must all pass before a phase is accepted.
+    severity: high

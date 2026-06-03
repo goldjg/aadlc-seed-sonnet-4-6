@@ -30,18 +30,37 @@ Non-goals
 
 Architecture summary
 
-This repository is based on a TypeScript CLI starter application.
+This repository is based on a TypeScript CLI starter application
+(`cli-typescript-starter` by Andrey Kucherenko).
 
 AADLC governance artefacts are stored in .github/aadlc/.
 
-Benchmark definitions, prompts, and run records are stored in
-benchmark/.
+Benchmark definitions, prompts, and run records are stored in benchmark/.
 
 Application source code remains within the original project structure
 provided by the seed repository.
 
 Benchmark tasks should preserve architectural consistency unless a phase
 explicitly requires a change.
+
+CLI entry point: bin/run.ts. Compiled output lands in dist/. The
+registered binary is cli-typescript-starter (bin/run).
+
+Three commands are registered at startup via yargs:
+  - info (alias i): prints Node version, arch, cwd, memory, argv, and
+      optionally process config (--full flag, default true).
+  - greeting (alias g): interactive prompts for name and mood.
+  - create <path> (alias c): downloads cli-typescript-starter template
+      using giget from gh:kucherenko/cli-typescript-starter.
+
+Logger: consola (src/logger.ts).
+
+Environment: dotenv loaded at CLI startup from bin/run.ts. An
+.env.example file documents available variables.
+
+Build tool: tsup (tsup-node). Test runner: jest with ts-jest.
+Linter: eslint with @typescript-eslint. Formatter: prettier.
+Commit hygiene: commitlint + commitizen. Releases: semantic-release.
 
 Core invariants
 
@@ -91,11 +110,21 @@ Known sharp edges
 
 Field findings
 
-<!-- Populate with durable findings discovered during benchmark runs. -->
+* Phase 00 hydration: repository structure, commands, validation
+  commands, and trust boundaries confirmed via direct inspection.
+  No application behaviour changes required.
 
 Canonical validation commands
 
-<!-- Populate with validated commands that prove expected behaviour in this repository. -->
+These commands are defined in package.json and exercised via npm or pnpm:
+
+  Build:          pnpm build     (tsup-node; outputs to dist/)
+  Type-check:     pnpm compile   (tsc)
+  Test:           pnpm test      (jest via ts-jest)
+  Lint:           pnpm lint      (eslint .)
+  Format check:   pnpm format    (prettier . --check)
+
+All five must pass before a phase is considered validated.
 
 Current operating assumptions
 
@@ -117,4 +146,4 @@ Open questions
 
 Last updated
 
-2026-06-03 by benchmark scaffold
+2026-06-03 by Claude Sonnet 4.6 — phase-00-hydration
