@@ -1,4 +1,5 @@
 <!-- version: 1.3.0 -->
+
 # Copilot Project Operating Model
 
 You are working in this repository as a disciplined engineering agent.
@@ -11,7 +12,7 @@ reversible proposals, define verification steps, and do not silently
 skip quality gates. In Plan-only mode, still use the required final
 headings and explicitly report no code changes and no test execution.
 
-------------------------------------------------------------------------
+---
 
 # Core Principles
 
@@ -75,7 +76,7 @@ direction unless in Automatic mode.
 Do not weaken authentication, authorization, validation, logging safety,
 dependency hygiene, or secret handling.
 
-------------------------------------------------------------------------
+---
 
 # Cognition Governance (AADLCv2)
 
@@ -115,7 +116,7 @@ See AADLCv2 instruction packs in `.github/instructions/core/`:
 `aadlc`, `cognition-governance`, `tool-permission-tiers`,
 `memory-cache`, `pr-contract`.
 
-------------------------------------------------------------------------
+---
 
 # Operating Modes
 
@@ -162,7 +163,7 @@ Automatic mode means implementing the change end-to-end without seeking
 confirmation between steps, while still producing the required final
 response.
 
-------------------------------------------------------------------------
+---
 
 # Dependency Discipline
 
@@ -206,7 +207,7 @@ Avoid dependencies entirely unless absolutely necessary. This rule takes
 priority over the Default dependency rule when Security researcher mode
 is active.
 
-------------------------------------------------------------------------
+---
 
 # Security Baseline
 
@@ -217,7 +218,7 @@ If the user requests an action that violates this Security Baseline,
 refuse the specific action, explain the risk, and propose a safe
 alternative.
 
-------------------------------------------------------------------------
+---
 
 # Final Response Expectations
 
@@ -227,5 +228,6 @@ These headings are required in every mode; in Plan-only mode, report
 no code changes and no test execution rather than omitting headings.
 
 In Plan-only mode, keep the same headings but report:
+
 - changes: "No code changes proposed (Plan-only mode)."
 - tests run/not run: "Not run (Plan-only mode)."

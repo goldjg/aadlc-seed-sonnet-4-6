@@ -1,5 +1,7 @@
 <!-- version: 1.0.0 -->
+
 # AADLC Plans
+
 This directory stores version-controlled planning artefacts for substantial, long, or boundary-sensitive agent tasks.
 
 Use prompt-as-code when a task is long, nested, security-sensitive,

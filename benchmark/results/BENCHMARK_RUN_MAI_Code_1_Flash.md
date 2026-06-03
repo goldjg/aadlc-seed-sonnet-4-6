@@ -14,15 +14,15 @@ Additional notes:
 
 ## Credit ledger
 
-| Phase | Start credits | End credits | Delta | Notes |
-|---|---:|---:|---:|---|
-| 00 Hydration | | | | |
-| 01 CLI feature | | | | |
-| 02 Validation bug | | | | |
-| 03 Tests | | | | |
-| 04 Refactor | | | | |
-| 05 Docs | | | | |
-| 06 Review-hardening | | | | |
+| Phase               | Start credits | End credits | Delta | Notes |
+| ------------------- | ------------: | ----------: | ----: | ----- |
+| 00 Hydration        |               |             |       |       |
+| 01 CLI feature      |               |             |       |       |
+| 02 Validation bug   |               |             |       |       |
+| 03 Tests            |               |             |       |       |
+| 04 Refactor         |               |             |       |       |
+| 05 Docs             |               |             |       |       |
+| 06 Review-hardening |               |             |       |       |
 
 ## Phase outcomes
 
@@ -39,7 +39,7 @@ Additional notes:
 ## Human steering log
 
 | Phase | Intervention | Reason | Impact |
-|---|---|---|---|
+| ----- | ------------ | ------ | ------ |
 
 ## Review notes
 
