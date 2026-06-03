@@ -1,7 +1,5 @@
 import { ArgumentsCamelCase, Argv } from 'yargs'
-import { logger } from '../logger'
-import * as process from 'node:process'
-import { blue, bold, gray, green, red, yellow } from 'picocolors'
+import { outputInfoAsJson, outputInfoAsText } from './info.formatter'
 
 export type OutputFormat = 'text' | 'json'
 
@@ -38,27 +36,9 @@ export async function handler(argv: ArgumentsCamelCase<InfoArgv>) {
   }
 
   if (argv.format === 'json') {
-    const output: Record<string, unknown> = {
-      node: process.version,
-      arch: process.arch,
-      cwd: process.cwd(),
-      memoryUsage: process.memoryUsage(),
-      argv,
-    }
-    if (argv.full) {
-      output.processConfig = process.config
-    }
-    process.stdout.write(JSON.stringify(output, null, 2) + '\n')
+    outputInfoAsJson(argv)
     return
   }
 
-  logger.info(bold(red('Basic command to display information about the CLI application.')))
-  logger.info(green('Node:'), bold(process.version))
-  logger.info(yellow('Processor architecture:'), process.arch)
-  logger.info(blue('Current dir:'), process.cwd())
-  logger.info(gray('Memory usage:'), process.memoryUsage())
-  logger.info(gray('Argv:'), argv)
-  if (argv.full) {
-    logger.box(gray(bold('Process config:')), process.config)
-  }
+  outputInfoAsText(argv)
 }
