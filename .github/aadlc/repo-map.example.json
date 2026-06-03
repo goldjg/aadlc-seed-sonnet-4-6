@@ -56,11 +56,7 @@
       "powershell.instructions.md",
       "html.instructions.md"
     ],
-    "platform": [
-      "cicd.instructions.md",
-      "docker.instructions.md",
-      "kubernetes.instructions.md"
-    ],
+    "platform": ["cicd.instructions.md", "docker.instructions.md", "kubernetes.instructions.md"],
     "cloud": [
       "azure.instructions.md",
       "entra.instructions.md",

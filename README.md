@@ -92,6 +92,10 @@ demonstrate the capabilities of the CLI application.
 
 - **`info`**: Prints information about the current system and Node.js configuration. This command is useful for
   verifying the environment in which the CLI is running.
+  - `--full` / `-f` (default: `true`): include full process config in the output.
+  - `--format` / `-o` (choices: `text`, `json`; default: `text`): select output format.
+    - `text` — coloured human-readable output (default, existing behaviour).
+    - `json` — machine-readable JSON written to stdout.
 - **`greeting`**: Demonstrates interactive prompts within the CLI. It's a great way to see how user inputs can be
   handled in a friendly manner.
 - **`create`**: Create new project based on `cli-typescript-starter`.

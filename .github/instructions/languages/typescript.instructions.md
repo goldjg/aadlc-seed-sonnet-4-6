@@ -1,4 +1,5 @@
 <!-- version: 1.0.1 -->
+
 # TypeScript Language Pack
 
 Use this guidance when working with TypeScript code.
